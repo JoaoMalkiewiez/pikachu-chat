@@ -1,0 +1,9 @@
+node_modules/
+.env
+*.log
+cert/
+pikachu.db
+audio/
+avatars/
+images/
+.DS_Store

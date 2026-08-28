@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chat</title>
+<link rel="stylesheet" href="/style.css?v=21">
+</head>
+<body>
+<section id="loginView" class="screen">
+  <div class="login-card">
+    <div class="bolt">💬</div>
+    <div class="eyebrow">Acesso // Chat</div>
+    <h1>Chat</h1>
+    <p>Messenger</p>
+
+    <div class="tabs">
+      <button id="tabLogin" class="tab active" type="button">ENTRAR</button>
+      <button id="tabRegister" class="tab" type="button">CRIAR USUÁRIO</button>
+    </div>
+
+    <div id="loginPanel">
+      <input id="loginUser" type="text" placeholder="Usuário" autocomplete="username">
+      <input id="loginPass" type="password" placeholder="Senha" autocomplete="current-password">
+      <button id="loginButton" class="primary" type="button">Acessar <span>→</span></button>
+    </div>
+
+    <div id="registerPanel" class="hidden">
+      <input id="registerUser" type="text" maxlength="24" placeholder="Novo usuário" autocomplete="username">
+      <input id="registerPass" type="password" maxlength="72" placeholder="Senha" autocomplete="new-password">
+      <input id="registerPass2" type="password" maxlength="72" placeholder="Confirmar senha" autocomplete="new-password">
+      <button id="registerButton" class="primary" type="button">Registrar <span>+</span></button>
+    </div>
+
+    <div id="authMessage"></div>
+    <footer>● CONEXÃO PRIVADA</footer>
+  </div>
+</section>
+
+<main id="chatApp" class="hidden app">
+  <header class="app-header">
+    <div class="app-brand">
+      <span>💬</span>
+      <div><b>Chat</b><small>Messenger</small></div>
+    </div>
+    <div class="app-actions">
+      <span id="onlineStatus">● ONLINE</span>
+      <button id="themeToggle" type="button">Escuro</button><button id="profileButton" type="button">Perfil</button>
+      <button id="logoutButton" type="button">Sair</button>
+    </div>
+  </header>
+
+  <div class="app-body">
+    <aside class="conversation-sidebar">
+      <div class="sidebar-title"><span>CONVERSAS</span><span id="onlineCount">0</span></div>
+
+      <button id="generalButton" class="conversation-item active" type="button">
+        <span class="conversation-avatar">💬</span>
+        <span class="conversation-copy"><b>canal-geral</b><small>Todos os agentes</small></span>
+      </button>
+
+      <div class="section-label">TELAS COMPARTILHADAS</div>
+      <div id="sharedScreens"></div>
+      <div class="section-label">USUÁRIOS</div>
+      <div id="privateList"></div>
+
+      <div class="sidebar-note">Messenger<br><small>Novos usuários aparecem automaticamente.</small></div>
+    </aside>
+
+    <section class="chat-panel">
+      <div class="chat-header">
+        <div id="chatIcon" class="chat-icon">💬</div>
+        <div class="chat-heading">
+          <b id="chatTitle">canal-geral</b>
+          <small id="chatSubtitle">Todos os agentes</small>
+        </div>
+        <button id="searchButton" class="icon-button" type="button" title="Buscar">⌕</button>
+      </div>
+
+      <div id="searchBar" class="search-bar hidden">
+        <input id="searchInput" type="text" placeholder="Buscar nas mensagens...">
+        <button id="closeSearch" type="button">×</button>
+      </div>
+
+      <div id="messages" class="messages"></div>
+      <div id="typingIndicator" class="typing"></div>
+
+      <div id="replyBar" class="reply-bar hidden">
+        <div id="replyPreview"></div>
+        <button id="cancelReply" type="button">×</button>
+      </div>
+
+      <form id="messageForm" class="composer">
+        <input id="imageInput" type="file" accept="image/png,image/jpeg,image/webp,image/gif" hidden>
+        <input id="messageInput" type="text" maxlength="2000" placeholder="Transmitir mensagem..." autocomplete="off">
+        <button id="imageButton" class="media-button" type="button" title="Enviar imagem">🖼</button>
+        <button id="recordButton" class="media-button" type="button" title="Gravar áudio">🎙</button>
+        <button id="shareButton" class="media-button" type="button" title="Compartilhar tela">▣</button>
+        <button id="sendButton" class="send-button" type="submit" title="Enviar mensagem">➤</button>
+      </form>
+      <div id="recordingBar" class="recording-bar hidden">
+        <span class="rec-dot"></span>
+        <span id="recordingTime">00:00</span>
+        <span id="recordingState">Gravando...</span>
+        <button id="stopRecording" type="button">Parar</button>
+        <button id="cancelRecording" type="button">Cancelar</button>
+      </div>
+      <div id="audioPreviewBar" class="audio-preview-bar hidden">
+        <span>🎙</span>
+        <audio id="audioPreview" controls></audio>
+        <span id="audioPreviewTime">00:00</span>
+        <button id="sendAudio" type="button">Enviar áudio</button>
+        <button id="cancelAudio" type="button">Cancelar</button>
+      </div>
+    </section>
+  </div>
+</main>
+
+
+<div id="sharePanel" class="share-panel hidden">
+  <div class="share-head"><b>Compartilhar tela</b><button id="closeShare" type="button">×</button></div>
+  <div class="share-info">A tela ficará disponível para quem clicar em "Ver tela".</div>
+  <button id="startShare" class="primary" type="button">Iniciar compartilhamento</button>
+</div>
+<div id="screenOverlay" class="screen-overlay hidden">
+  <div class="screen-window">
+    <div class="screen-top">
+      <span id="screenStatus">Compartilhamento</span>
+      <button id="stopShare" type="button">Parar</button>
+      <button id="fullScreen" type="button">Tela cheia</button>
+      <button id="closeScreen" type="button">×</button>
+    </div>
+    <video id="screenVideo" autoplay playsinline></video>
+  </div>
+</div>
+<div id="profileModal" class="modal hidden">
+  <div class="modal-card">
+    <div class="modal-header"><b>PERFIL</b><button id="closeProfile" type="button">×</button></div>
+    <label>Foto de perfil<input id="profileAvatarFile" type="file" accept="image/png,image/jpeg,image/webp,image/gif"><div id="avatarPreview" class="avatar-preview">💬</div></label>
+    <label>Usuário<input id="profileUsername" disabled></label>
+    <label>Status<input id="profileStatus" maxlength="40"></label>
+    <label>Bio<textarea id="profileBio" maxlength="160"></textarea></label>
+    <button id="saveProfile" class="primary" type="button">Salvar perfil</button>
+    <div id="profileMessage"></div>
+  </div>
+</div>
+
+<script src="/app.js?v=21"></script>
+</body>
+</html>

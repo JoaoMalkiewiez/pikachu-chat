@@ -1,0 +1,15 @@
+services:
+  pikachu:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      HOST: 0.0.0.0
+      USE_TLS: 0
+      DATA_DIR: /app/data
+    volumes:
+      - pikachu_data:/app/data
+volumes:
+  pikachu_data:

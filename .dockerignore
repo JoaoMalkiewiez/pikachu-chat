@@ -1,0 +1,7 @@
+node_modules
+cert
+*.db
+audio
+avatars
+images
+.env
