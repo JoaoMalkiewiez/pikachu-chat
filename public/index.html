@@ -27,7 +27,7 @@
 
     <div id="registerPanel" class="hidden">
       <input id="registerUser" type="text" maxlength="24" placeholder="Novo usuário" autocomplete="username">
-      <input id="registerPass" type="password" maxlength="72" placeholder="Senha" autocomplete="new-password">
+      <input id="registerPass" type="password" maxlength="72" placeholder="Senha (12–72 caracteres)" minlength="12" autocomplete="new-password">
       <input id="registerPass2" type="password" maxlength="72" placeholder="Confirmar senha" autocomplete="new-password">
       <button id="registerButton" class="primary" type="button">Registrar <span>+</span></button>
     </div>
@@ -82,6 +82,7 @@
         <button id="closeSearch" type="button">×</button>
       </div>
 
+      <button id="loadHistory" type="button" class="hidden">Carregar mensagens anteriores</button>
       <div id="messages" class="messages"></div>
       <div id="typingIndicator" class="typing"></div>
 
@@ -145,6 +146,6 @@
   </div>
 </div>
 
-<script src="/app.js?v=21"></script>
+<script src="/app.js?v=25"></script>
 </body>
 </html>

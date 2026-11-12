@@ -204,3 +204,6 @@ html,body{max-width:100%;overflow:hidden}
 }
 
 .image-bubble{padding:4px;overflow:hidden}.image-bubble img{display:block;max-width:min(520px,70vw);max-height:420px;width:auto;height:auto;border-radius:8px;cursor:zoom-in;object-fit:contain}
+
+.msg.mine[data-read="true"] .meta::after{content:" · ✓✓";color:var(--primary)}
+#loadHistory{padding:8px;border:0;border-bottom:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer}
