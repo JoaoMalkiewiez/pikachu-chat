@@ -1,10 +1,11 @@
-FROM node:22-alpine
+FROM node:24.22.1-alpine
 WORKDIR /app
-COPY package.json ./
+ENV NODE_ENV=production HOST=0.0.0.0 PORT=3000
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev && npm cache clean --force
 COPY server.js ./
+COPY src ./src
 COPY public ./public
-RUN mkdir -p /app/data
-ENV NODE_ENV=production PORT=3000 HOST=0.0.0.0 DATA_DIR=/app/data USE_TLS=0
+USER node
 EXPOSE 3000
-VOLUME ["/app/data"]
-CMD ["node","server.js"]
+CMD ["node", "server.js"]

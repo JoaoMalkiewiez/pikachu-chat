@@ -1,33 +1,34 @@
-# Pikachu Chat — Hospedagem
+# Pikachu Chat V25
 
-## Produção
-O app está preparado para rodar sem .bat.
+Node 24 LTS, PostgreSQL no Supabase V25, Storage privado e WebSocket.
+Autenticação própria por username/scrypt e sessões persistentes. Não usa Supabase Auth.
+A aparência e os recursos de texto, imagem, áudio, perfil e tela foram preservados.
 
-### Docker
-docker compose up -d --build
-
-O app escuta na porta 3000. Em produção, coloque um proxy HTTPS (Nginx, Caddy ou a própria hospedagem) na frente da aplicação.
-
-### Sem Docker
-Defina as variáveis:
-PORT=3000
-USE_TLS=0
-DATA_DIR=/caminho/persistente
-
-Depois execute:
+```sh
+npm ci
+cp .env.example .env
+# Preencha .env localmente; nunca envie segredos ao GitHub ou ao navegador.
 npm start
+```
 
-## Dados persistentes
-O banco SQLite e os uploads ficam em DATA_DIR:
-- pikachu.db
-- audio/
-- avatars/
-- images/
+Use o endereço exato de APP_ORIGIN. Em produção, HTTPS é obrigatório.
+O backend acessa o PostgreSQL e assina arquivos privados após verificar a sessão e a conversa.
+Não execute schema.sql no projeto existente: ele é apenas referência para bancos novos isolados.
 
-Não use armazenamento efêmero para DATA_DIR, ou usuários e arquivos poderão desaparecer após um redeploy.
+- [Diagnóstico inicial](docs/DIAGNOSTICO.md)
+- [Arquitetura e limitações](docs/ARQUITETURA.md)
+- [Evidências de validação](docs/VALIDACAO.md)
+- [Preparação para produção](docs/PRODUCAO.md)
+- [Checklist de deploy](DEPLOY-CHECK.md)
 
-## Compartilhamento de tela
-WebRTC exige contexto seguro para captura de tela. Na hospedagem use HTTPS real. O app pode rodar internamente em HTTP atrás de um proxy HTTPS.
+```sh
+npm run lint
+npm run check
+npm test
+npm run test:browser
+npm run validate:render
+```
 
-## Variáveis
-Veja .env.example.
+Os testes usam PGlite (PostgreSQL WASM isolado), HTTP/WS reais e Storage simulado.
+O teste de navegador requer Chromium em `/usr/bin/chromium` e usa mídia sintética.
+Não há etapa de build: o frontend é servido diretamente.

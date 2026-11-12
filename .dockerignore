@@ -1,7 +1,10 @@
 node_modules
-cert
-*.db
-audio
-avatars
-images
+.git
 .env
+.env.*
+!.env.example
+*.log
+cert
+work
+tests
+docs
