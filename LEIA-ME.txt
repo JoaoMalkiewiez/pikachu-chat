@@ -1,14 +1,5 @@
-CHAT V18
-
-Correção do compartilhamento de tela:
-- ICE candidates recebidos antes do offer agora ficam em fila.
-- ICE do viewer também é enfileirado até a descrição remota estar pronta.
-- O vídeo remoto chama play() depois de carregar metadata.
-- Popup continua sendo usado.
-- Apenas uma transmissão pode ficar ativa.
-- A transmissão só inicia para quem clicar em "Ver tela".
-- Continua disponível no geral e, se necessário, privado.
-
-Usar HTTPS:
-https://localhost:3443
-https://10.2.200.30:3443
+Pikachu Chat V25 — Node 24 LTS + Supabase PostgreSQL/Storage privado.
+Leia README-HOSPEDAR.md e DEPLOY-CHECK.md.
+Não há SQLite, DATA_DIR ou HTTPS local embutido.
+Use npm ci; configure .env; execute npm start.
+Para compartilhar tela, use localhost ou HTTPS.

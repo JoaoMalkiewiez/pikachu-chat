@@ -1,27 +1,32 @@
+# Preparation only: no service is created or deployed by this repository change.
 services:
   - type: web
-    name: pikachu-chat
+    name: pikachu-chat-v25
     runtime: node
     plan: free
-    buildCommand: npm install
+    branch: recovery/pikachu-v25-hardening
+    autoDeployTrigger: 'off'
+    buildCommand: npm ci --omit=dev
     startCommand: npm start
     healthCheckPath: /api/health
     envVars:
       - key: NODE_VERSION
-        value: 22.16.0
+        value: 24.22.1
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 10000
       - key: HOST
         value: 0.0.0.0
+      - key: TRUST_PROXY
+        value: '1'
+      - key: APP_ORIGIN
+        sync: false
       - key: DATABASE_URL
         sync: false
-      - key: SUPABASE_URL
+      - key: DATABASE_CA_FILE
         sync: false
+      - key: SUPABASE_URL
+        value: https://ebmxdnuyboarhmcigkcu.supabase.co
       - key: SUPABASE_SERVICE_ROLE_KEY
         sync: false
-      - key: STORAGE_BUCKET
-        value: chat-media
       - key: APP_SECRET
         generateValue: true
